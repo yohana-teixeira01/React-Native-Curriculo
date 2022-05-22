@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
 import { Caption, Paragraph, Subheading, Headline, Chip } from 'react-native-paper';
-import  {websevice}  from '../../websevice';
+
 
 
 const Item = ({ title, local, area ,materia, description, tag }) => (
@@ -52,9 +52,6 @@ const styles = StyleSheet.create({
     fontSize: 32,
   },
 });
-
-const teste = websevice.getDados( );
-  console.log(teste)
 
 const DATA = [
   {

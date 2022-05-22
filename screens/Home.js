@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, ScrollView} from 'react-native';
 import { Headline, Paragraph, Subheading} from 'react-native-paper';
 import { SafeAreaView } from "react-native-safe-area-context";
-import  {websevice}  from '../../websevice';
+import  api from '../../websevice';
 
 
 import AvatarComponent from '../components/AvatarComponent';
@@ -10,28 +10,36 @@ import ButtonLinkingComponent from '../components/ButtonLinkingComponent';
 
 
 export function Home() { 
+
+   const [dados,setDados] = useState();
+   
+   useEffect( async () => {
+     const response = await api.get("/dadosPessoais")
+     setDados(response.data)
+   },[])
+
+   console.log(dados)
   
-  const teste = websevice.getDados( );
-  console.log(teste)
   return(
     <SafeAreaView style={styles.container}>
       <ScrollView showsHorizontalScrollIndicator ={false}>
         <AvatarComponent style={styles.section}/>
-        <Headline  style={styles.section}>{name}</Headline>
-        <Subheading>{description}</Subheading>
+        <Headline  style={styles.section}>{setDados?[name]:name}</Headline>
+        <Subheading>{dados?[description]:description}</Subheading>
         <ButtonLinkingComponent
           title='linkedin'
           icon='linkedin'
-          url={linkLinkedin}
-        >{name}
+          url={setDados?[linkLinkedin]:linkLinkedin}
+        >{setDados?[name]:name}
         </ButtonLinkingComponent>
         <Subheading style={styles.section}> Sobre mim</Subheading>
-        <Paragraph style={styles.section}>{about}</Paragraph>
+        <Paragraph style={styles.section}>{setDados?[about]:about}</Paragraph>
     </ScrollView>
     </SafeAreaView>
  
       )
 }
+
 
 const styles = StyleSheet.create({
    container: {

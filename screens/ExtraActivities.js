@@ -6,6 +6,16 @@ import FlatListComponent from '../components/FlatListComponent';
 
 
 export function ExtraActivities() {
+
+  const [dadosExtras,setDadosExtras] = useState();
+   
+  useEffect( async () => {
+    const response = await api.get("/extra")
+    setDados(response.data)
+  },[])
+
+  console.log(dadosExtras)
+
   return(
     <SafeAreaView style={styles.container}>
         <FlatListComponent/>
